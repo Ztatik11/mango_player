@@ -4,7 +4,7 @@ import musicPlayerStyle from '../styles/music_player'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
-const music_player = () => {
+export const musicPlayer = () => {
   return (
     <SafeAreaView style= {musicPlayerStyle.container}>
       <View style= {musicPlayerStyle.maincontainer}>
@@ -28,8 +28,5 @@ const music_player = () => {
         
       </View>
     </SafeAreaView>
-    
   )
 }
-
-export default music_player
