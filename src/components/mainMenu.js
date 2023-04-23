@@ -8,7 +8,9 @@ export const mainMenu= () => {
     const {navigate} = useNavigation();
     const state = useSelector(state => state.user);
     //navigate("Player")
+    console.log(state)
     return(
+        
         <View style={LoginStyle.container}>
             <Text>MENU PRINCIPAL</Text>
             <Text>MI NOMBRE ES ******** Y MI CORREO ES *********</Text>

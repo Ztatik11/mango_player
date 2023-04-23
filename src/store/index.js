@@ -1,13 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import {loginSlice} from './reducers/user';
+import { loginSuccess, loginFailure, logout } from "../store/reducers/user";
 
-
-const store = configureStore({
-    reducer: {
-      login: loginSlice,
-    },
+const rootReducer = combineReducers({
+  loginsuccess: loginSuccess,
+  loginFailure: loginFailure,
+  logout: logout
 });
 
-export default store;
+export const store = configureStore({
+    reducer: rootReducer
+});

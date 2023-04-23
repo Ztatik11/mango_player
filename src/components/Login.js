@@ -2,35 +2,43 @@ import React , {useState} from "react";
 import { Text,TextInput,View,TouchableOpacity } from "react-native";
 import {useNavigation} from "@react-navigation/native"
 import { useSelector, useDispatch } from "react-redux";
-import { loginUser } from "../store/reducers/user";
+import { loginSuccess, loginFailure, logout } from "../store/reducers/user";
+import axios from 'axios';
 import LoginStyle from "../styles/LoginStyle"
 export const Login= () => {
     const {navigate} = useNavigation();
-    const [user, setUser] = useState("");
+    const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
 
     const dispatch = useDispatch();
 
     const LoginUser = async () =>{
+        console.log(correo+" "+password)
         try {
-        const response = await axios.post("http://192.168.0.23:3000/login", {
-            Usuario :user,
-            Clave :password,
-        });
-        const user = await response.json();
-            dispatch(loginSuccess({ type: 'LOGIN_SUCCESS', payload: {user} }));
+            const user = await axios.post("http://192.168.0.23:3000/login", {
+                Email: correo,
+                Clave: password
+            });
+            console.log(user.data);
+            dispatch(loginSuccess({payload:user.data}));
         } catch (error) {
-            dispatch(loginFailure({ type: 'LOGIN_FAILURE', payload: {error} }));
+            dispatch(loginFailure({payload:error.message}));
         }
+    }
+
+    const login = () =>{
+        console.log("Entra en login")
+        LoginUser()
+        navigate("MainMenu")
     }
     
     //navigate("Player")
     return(
         <View style={LoginStyle.container}>
             <Text>LOGIN</Text>
-            <TextInput style={LoginStyle.input} placeholder="Email" onChangeText={(usuario) => setUser(usuario)}/>
-            <TextInput style={LoginStyle.input} placeholder="Clave" onChangeText={(clave) => setPassword(clave)}/>
-            <TouchableOpacity onPress={()=>LoginUser} style={LoginStyle.botonIngreso} >
+            <TextInput style={LoginStyle.input} placeholder="Email" onChangeText={correo => setCorreo(correo+"")}/>
+            <TextInput style={LoginStyle.input} placeholder="Clave" onChangeText={clave => setPassword(clave+"")}/>
+            <TouchableOpacity onPress={()=>{login()}} style={LoginStyle.botonIngreso} >
                 <Text style={LoginStyle.botonIngresoText}>Entrar</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>navigate("Register")}>

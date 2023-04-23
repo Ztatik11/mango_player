@@ -87,8 +87,8 @@ export const Register= () => {
         }
       }
       function validacion_post(){
-        if (validacion_nombre==true && validacion_apellido==true && validacion_edad==true && validacion_correo==true) {
-            postUser;
+        if (validacion_nombre==true && validacion_apellido==true && validacion_correo==true) {
+            postUser();
         }else{
             Alert.alert("HAS INTRODUCIDO DATOS INCORRECTOS")
         }

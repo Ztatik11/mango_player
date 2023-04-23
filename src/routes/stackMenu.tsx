@@ -17,7 +17,7 @@ export const StackMenu = () => {
             <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Player" component={musicPlayer}/>
             <Stack.Screen name="Register" component={Register}/>
-            <Stack.Screen name="MainMenu" component={Register}/>
+            <Stack.Screen name="MainMenu" component={mainMenu}/>
         </Stack.Navigator>
     )
 }
