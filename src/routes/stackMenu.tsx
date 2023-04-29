@@ -13,7 +13,10 @@ const Stack = createNativeStackNavigator<Pages>();
 
 export const StackMenu = () => {
     return(
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator screenOptions={{
+            headerShown: false,
+            }} animation="flip"
+            >
             <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Player" component={musicPlayer}/>
             <Stack.Screen name="Register" component={Register}/>

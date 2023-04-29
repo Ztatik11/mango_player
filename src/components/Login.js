@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess, loginFailure, logout } from "../store/reducers/user";
 import axios from 'axios';
 import LoginStyle from "../styles/LoginStyle"
+import SafeAreaViewStyle from '../styles/SafeAreaViewStyle'
+import { SafeAreaView } from "react-native-safe-area-context";
 export const Login= () => {
     const {navigate} = useNavigation();
     const [correo, setCorreo] = useState("");
@@ -34,6 +36,7 @@ export const Login= () => {
     
     //navigate("Player")
     return(
+    <SafeAreaView style= {SafeAreaViewStyle.container}>
         <View style={LoginStyle.container}>
             <Text>LOGIN</Text>
             <TextInput style={LoginStyle.input} placeholder="Email" onChangeText={correo => setCorreo(correo+"")}/>
@@ -45,5 +48,6 @@ export const Login= () => {
                 <Text style={{color: "blue"}}>No tengo una cuenta</Text>
             </TouchableOpacity>
         </View>
+    </SafeAreaView>
     )
 }
