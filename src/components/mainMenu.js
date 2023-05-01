@@ -40,6 +40,7 @@ export const mainMenu= () => {
   };
 
   useEffect(() => {
+    authLogin()
     console.log(authLogin())
   }, []);
 

@@ -66,7 +66,12 @@ export const OptionBar = () => {
           }}>
           <Ionicons name="heart-outline" size={30} color="white" />
         </TouchableOpacity>
+
         <TouchableOpacity onPress={() => {}}>
+          <Ionicons name="musical-notes-outline"/>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {navigate('MainCrud');}}>
           <Ionicons name="person-circle-outline" size={30} color="white" />
         </TouchableOpacity>
       </View>
