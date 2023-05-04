@@ -68,7 +68,7 @@ export const OptionBar = () => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => {}}>
-          <Ionicons name="musical-notes-outline"/>
+          <Ionicons name="musical-notes-outline" size={30} color="white"/>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => {navigate('MainCrud');}}>
