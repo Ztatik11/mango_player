@@ -19,8 +19,8 @@ export const StackMenu = () => {
             headerShown: false,
             }} animation="flip"
             >
-            <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Player" component={musicPlayer}/>
+            <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Register" component={Register}/>
             <Stack.Screen name="MainMenu" component={mainMenu}/>
             <Stack.Screen name="MainCrud" component={mainCrud} options={{stackPresentation: 'modal'}}/>
