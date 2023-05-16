@@ -13,7 +13,9 @@ export const TrackProp= ({item,index,data}) => {
   return(
       <TouchableOpacity style={[trackPropStyle.container,{marginBottom: index==data.length-1 ? 30:0},]} onPress={()=>{
         navigation.navigate("Player",{
-          data: item,
+          song: item,
+          index: index,
+          data: data
         })
       }}>
         <Image source={{uri: item.artwork}} style={trackPropStyle.songImage}/>

@@ -7,8 +7,9 @@ import {OptionBar} from '../props/optionBar'
 import TrackPlayer, {Capability,RepeatMode,Event,State,usePlaybackState,useProgress,useTrackPlayerEvents} from 'react-native-track-player';
 import musicPlayerStyle from '../styles/music_player'
 import songs from '../models/music';
+import { useRoute } from '@react-navigation/native';
 
-const setUpPlayer = async () => {
+const setUpPlayer = async (songs) => {
   try {
     await TrackPlayer.setupPlayer();
     await TrackPlayer.updateOptions({
@@ -21,6 +22,7 @@ const setUpPlayer = async () => {
       ]
     })
     await TrackPlayer.add(songs);
+    await TrackPlayer.skip(songIndex);
     await TrackPlayer.play();
   } catch (e) {
     
@@ -28,30 +30,34 @@ const setUpPlayer = async () => {
 }
 
 const togglePlayBack = async usePlaybackState =>{
-  const currentTrack = await TrackPlayer.getCurrentTrack();
-  if(currentTrack !=null){
-    if(usePlaybackState == State.Paused){
-      await TrackPlayer.play();
-    }else{
-      await TrackPlayer.pause();
-    }
+  console.log(usePlaybackState);
+  if (
+    usePlaybackState === State.Paused ||
+    usePlaybackState === State.Ready ||
+    usePlaybackState === State.Buffering ||
+    usePlaybackState === State.Connecting
+  ) {
+    await TrackPlayer.play();
+  } else {
+    await TrackPlayer.pause();
   }
 }
 
 
 export const musicPlayer = () => {
+  const route = useRoute()
   const [imageLoaded, setImageLoaded] = useState(false);
   const playBackState = usePlaybackState();
   const progress = useProgress()
   const scrollX = useRef(new Animated.Value(0)).current;
   const songSlider = useRef(null)
   const {width, height} = Dimensions.get('window');
-  const [songIndex, setsongIndex] = useState(0);
+  const [songIndex, setsongIndex] = useState(route.params.index);
   const [repeatMode, setRepeatMode] = useState("off")
   const [trackTitle, setTrackTitle] = useState();
   const [trackArtist, setTrackArtist] = useState();
   const [trackArtWork, setTrackArtWork] = useState();
-
+  const ref = useRef();
   useTrackPlayerEvents([Event.PlaybackTrackChanged],async event =>{
     if(event.type === Event.PlaybackTrackChanged && event.nextTrack !== null){
       const track = await TrackPlayer.getTrack(event.nextTrack)
@@ -94,43 +100,40 @@ export const musicPlayer = () => {
   }
   
   useEffect(() => {
-    setUpPlayer();
-    skipTo(1)
-    //setImageLoaded(false);
-    scrollX.addListener(({value}) =>{
-      console.log(value)
-      console.log(playBackState)
-      const index = Math.round(value / width);
-      skipTo(index)
-      console.log(value +"/"+ width)
-      console.log(index)
-      setsongIndex(index);
-    })
-
-    return () => {
-      scrollX.removeAllListeners()
-      //TrackPlayer.reset()
-    }
+    setTimeout(() => {
+      ref.current.scrollToIndex({
+        animated: true,
+        index: songIndex,
+      });
+    }, 500);
+  }, []);
+  useEffect(() => {
+    setUpPlayer(route.params.data);
   }, [])
 
   const skipToNext = async() =>{
     
-    TrackPlayer.play()
-    const hasMoreTracks = songIndex < (songs.length - 1);
-    if(hasMoreTracks){
-      await TrackPlayer.skipToNext();
-      setsongIndex(songIndex+1);
-      console.log(songIndex)
+    if (songs.length - 1 > songIndex) {
+      setsongIndex(songIndex + 1);
+      ref.current.scrollToIndex({
+        animated: true,
+        index: parseInt(songIndex) + 1,
+      });
+      await TrackPlayer.skip(parseInt(songIndex) + 1);
+      togglePlayBack(playBackState);
     }
 
   }
 
   const skipToPrevius = async() =>{
-    TrackPlayer.play()
-    const hasMoreTracks = songIndex > 0;
-    if(hasMoreTracks){
-      await TrackPlayer.skipToPrevious();
-      setsongIndex(songIndex-1);
+    if (songIndex > 0) {
+      setsongIndex(songIndex - 1);
+      ref.current.scrollToIndex({
+        animated: true,
+        index: parseInt(songIndex) - 1,
+      });
+      await TrackPlayer.skip(parseInt(songIndex) - 1);
+      togglePlayBack(playBackState);
     }
   }
 
@@ -140,15 +143,14 @@ export const musicPlayer = () => {
 
   const renderSongs = ({item,index}) => {
     return(
-      <Animated.View style={musicPlayerStyle.mainImageWrapper}>
+      <View style={musicPlayerStyle.mainImageWrapper}>
         <View style={[musicPlayerStyle.imageWrapper, musicPlayerStyle.elevation]}>
           <Image 
             style={musicPlayerStyle.musicImage}
-            source={{uri:trackArtWork}}
-            onLoad={handleImageLoad}
+            source={{uri:item.artwork}}
           />
         </View>
-      </Animated.View>
+      </View>
       
     )
   }
@@ -156,25 +158,20 @@ export const musicPlayer = () => {
     <SafeAreaView style= {musicPlayerStyle.container}>
       <View style= {musicPlayerStyle.maincontainer}>
         {/* Image*/}
-        <Animated.FlatList
-        ref = {songSlider}
+        <FlatList
+        
         renderItem={renderSongs}
-        data={songs}
-        keyExtractor={item => item.id}
-        horizontal={true}
-        pagingEnabled={true}
-        showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={16}
-        onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: {x: scrollX}
-              }
-            }
-          ],
-          {useNativeDriver: true},
-        )}
+        horizontal
+          ref={ref}
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          data={songs}
+          onScroll={async e => {
+            const x = e.nativeEvent.contentOffset.x / width;
+            setsongIndex(parseInt(x.toFixed(0)));
+            await TrackPlayer.skip(parseInt(x.toFixed(0)));
+            togglePlayBack(playBackState);
+          }}
       />
         <View>
           <Text style={musicPlayerStyle.songTitle}>{trackTitle}</Text>
