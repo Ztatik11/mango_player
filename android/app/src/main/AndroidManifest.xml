@@ -28,7 +28,7 @@
           // this needs to match the scheme and host of the redirect URI as defined in My applications page
           <data
               android:host="callback"
-              android:scheme="mangoplayer"/>
+              android:scheme="com.mangoplayer"/>
      </intent-filter>
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

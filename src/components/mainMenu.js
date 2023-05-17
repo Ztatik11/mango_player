@@ -7,7 +7,6 @@ import {authorize} from 'react-native-app-auth';
 import {OptionBar} from '../props/optionBar'
 import LoginStyle from "../styles/LoginStyle"
 import SafeAreaViewStyle from '../styles/SafeAreaViewStyle'
-import songs from "../models/music";
 import axios from 'axios';
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -18,26 +17,7 @@ export const mainMenu= () => {
   const [source, setSource] = useState("");
   const [token, setToken] = useState(null);
   const [canciones, setCanciones] = useState([]);
-  //navigate("Player")
-  console.log(state)
-
-  const artistParameters = {
-    method: 'GET',
-    headers:{
-      'Content-Type': 'application/jason',
-      'Authorization': 'Bearer '+token
-    }
-  }
-
-  const buscarArtista = async () => {
-    try {
-      const ArtistID = await axios.get('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&market=ES&limit=10&include_external=audio', artistParameters)
-      console.log(JSON.stringify(ArtistID.data.tracks.items, null, 2))
-      setCanciones(ArtistID.data.tracks.items);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //console.log(state)
 
   const authConfig = {
     clientId: '25a83015b04940caa7f80dcbd1ca424f',
@@ -52,17 +32,17 @@ export const mainMenu= () => {
   }
 
   const handleSpotifyAuth = async () => {
-    try {
+    
       const result = await authorize(authConfig);
       console.log('Token de acceso:', result.accessToken);
       console.log('Token de actualización:', result.refreshToken);
-      setToken(result.accessToken)
-      buscarArtista()
+      if (result.accessToken) {
+        setToken(result.accessToken);
+      } else {
+        Alert.alert("ERROR al conseguir el token");
+      }
       // Realiza acciones adicionales con los tokens de acceso y actualización obtenidos
-    } catch (error) {
-      console.log(error);
-      Alert.alert("ERROR al conseguir el token")
-    }
+  
   };
 
   const authLogin = async () => {
@@ -70,13 +50,45 @@ export const mainMenu= () => {
   };
 
   useEffect(() => {
-    if(token===null) {
-      authLogin()
+    const buscarArtista = async () => {
+      try {
+        if (token === null) {
+          return; // Si el token es nulo, no se realiza la llamada a la API
+        }
+  
+        console.log(artistParameters.headers.Authorization);
+        const response = await axios.get('https://api.spotify.com/v1/search?q=remaster%2520track%3ADoxy%2520artist%3AMiles%2520Davis&type=track&market=ES&limit=10&include_external=audio', artistParameters);
+        console.log(JSON.stringify(response.data.tracks.items, null, 2));
+        const tracks = response.data.tracks.items.map((item,index) => ({
+          id: index + 1,
+          trackid: item.id,
+          url: item.preview_url,
+          title: item.name,
+          artist: item.artists[0].name,
+          artwork: item.album.images[0].url,
+        }));
+        const data = JSON.stringify(tracks, null, 2);
+        setCanciones(data);
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    if (token === null) {
+      authLogin();
+    } else {
+      buscarArtista(); // Realiza la llamada a la API cuando el token se actualiza correctamente
     }
-    buscarArtista()
-    
-    console.log(token)
-  }, []);
+  }, [token]);
+
+  const artistParameters = {
+    method: 'GET',
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+token
+    }
+  }
 
   const select_image = async () =>{
     const resource = await launchImageLibrary('photo')
@@ -92,22 +104,8 @@ export const mainMenu= () => {
       return null;
     }
   }
-
   return(
     <SafeAreaView style= {SafeAreaViewStyle.container}>
-      <View>
-      <FlatList
-        data={canciones}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View>
-            <Text>{item.name}</Text>
-            <Text>{item.artists[0].name}</Text>
-            <Image source={{ uri: item.album.images[0].url }} style={{ width: 100, height: 100 }} />
-          </View>
-        )}
-      />
-    </View>
       <View style={LoginStyle.container}>
           <Text>MENU PRINCIPAL</Text>
           <Text>MI NOMBRE ES ******** Y MI CORREO ES *********</Text>
@@ -122,7 +120,7 @@ export const mainMenu= () => {
           </TouchableOpacity>
           {imageSelected()}
       </View>
-      <OptionBar/>
+      <OptionBar data={canciones}/>
     </SafeAreaView>
   )
 }

@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import SearchBar from './searchBar';
 
-export const OptionBar = () => {
+export const OptionBar = ({ data }) => {
   const {navigate} = useNavigation();
   const [results, setResults] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
@@ -67,7 +67,10 @@ export const OptionBar = () => {
           <Ionicons name="heart-outline" size={30} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => {navigate('TrackList',{
+            data: data
+          })
+        }}>
           <Ionicons name="musical-notes-outline" size={30} color="white"/>
         </TouchableOpacity>
 
