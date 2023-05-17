@@ -59,9 +59,10 @@ export const musicPlayer = () => {
   const [trackArtWork, setTrackArtWork] = useState();
   const ref = useRef();
   useTrackPlayerEvents([Event.PlaybackTrackChanged],async event =>{
+    console.log(route.params.data)
     if(event.type === Event.PlaybackTrackChanged && event.nextTrack !== null){
       const track = await TrackPlayer.getTrack(event.nextTrack)
-      const {title, artwork, artist} = track
+      const {id,trackid,url,title, artist,artwork} = track
       setTrackTitle(title)
       setTrackArtist(artist)
       setTrackArtWork(artwork)
@@ -165,7 +166,7 @@ export const musicPlayer = () => {
           ref={ref}
           showsHorizontalScrollIndicator={false}
           pagingEnabled
-          data={songs}
+          data={route.params.data}
           onScroll={async e => {
             const x = e.nativeEvent.contentOffset.x / width;
             setsongIndex(parseInt(x.toFixed(0)));

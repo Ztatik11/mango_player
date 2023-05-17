@@ -67,9 +67,9 @@ export const mainMenu= () => {
           artist: item.artists[0].name,
           artwork: item.album.images[0].url,
         }));
-        const data = JSON.stringify(tracks, null, 2);
-        setCanciones(data);
-        console.log(data);
+        //const data = JSON.stringify(tracks, null, 2);
+        setCanciones(tracks);
+        //console.log(data);
       } catch (error) {
         console.error(error);
       }
