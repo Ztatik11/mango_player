@@ -3,23 +3,15 @@ import React, { useEffect, useState } from 'react';
 import musicPlayerStyle from '../styles/music_player';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import SearchModal from './SearchModal';
 
-import SearchBar from './searchBar';
 
-export const OptionBar = ({ data }) => {
+export const OptionBar = ({ data, token }) => {
   const {navigate} = useNavigation();
-  const [results, setResults] = useState([]);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isSearchModalVisible, setIsSearchModalVisible] = useState(false);
 
-  const handleSearch = (text) => {
-    //setSearchQuery(text);
-    // Aquí puedes realizar una búsqueda en tu fuente de datos
-    // y actualizar el estado de los resultados.
-    setResults([]);
-  };
-
-  const toggleSearch = () => {
-    setIsVisible(!isVisible);
+  const toggleSearchModal = () => {
+    setIsSearchModalVisible(!isSearchModalVisible);
   };
 
   const styles = StyleSheet.create({
@@ -32,21 +24,11 @@ export const OptionBar = ({ data }) => {
 
   return (
     <View style={musicPlayerStyle.bottomcontainer}>
-      <Modal visible={isVisible} animationType="slide">
-        <View style={styles.modalContainer}>
-          <TextInput
-            placeholder="Buscar"
-            value={"a"}
-            onChangeText={handleSearch}
-          />
-          <FlatList
-            data={results}
-            renderItem={({ item }) => <Text>{item.name}</Text>}
-            keyExtractor={(item) => item.id}
-          />
-          <Button title="Cerrar" onPress={toggleSearch} />
-        </View>
-      </Modal>
+      <SearchModal
+        toggleSearchModal={toggleSearchModal}
+        isVisible={isSearchModalVisible}
+        token={token}
+      />
       <View style={musicPlayerStyle.bottomIconWrapper}>
         <TouchableOpacity
           onPress={() => {
@@ -55,9 +37,7 @@ export const OptionBar = ({ data }) => {
           <Ionicons name="home-outline" size={30} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={
-            toggleSearch
-          }>
+          onPress={toggleSearchModal}>
           <Ionicons name="search-outline" size={30} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
@@ -67,11 +47,12 @@ export const OptionBar = ({ data }) => {
           <Ionicons name="heart-outline" size={30} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {navigate('TrackList',{
+        <TouchableOpacity onPress={() => {
+          navigate('TrackList', {
             data: data
           })
         }}>
-          <Ionicons name="musical-notes-outline" size={30} color="white"/>
+          <Ionicons name="musical-notes-outline" size={30} color="white" />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => {navigate('MainCrud');}}>
