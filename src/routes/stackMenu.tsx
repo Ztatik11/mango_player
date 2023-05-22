@@ -21,8 +21,8 @@ export const StackMenu = () => {
             headerShown: false,
             }} animation="flip"
             >
-            <Stack.Screen name="MainMenu" component={mainMenu}/>
             <Stack.Screen name="EditProfile" component={EditProfile}/>
+            <Stack.Screen name="MainMenu" component={mainMenu}/>
             <Stack.Screen name="TrackList" component={TrackList}/>
             <Stack.Screen name="Player" component={musicPlayer}/>
             <Stack.Screen name="Login" component={Login}/>

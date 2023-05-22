@@ -20,9 +20,9 @@ export const Register= () => {
     const [validacion_apellido,setvalidacion_apellido] =useState(false)
     const [validacion_correo,setvalidacion_correo] =useState(false)
 
-    const solo_texto = /[a-zA-ZÁ-ÿ\s]+$/
-    const solo_numero = /[0-9\s]+$/
-    const formato_correo = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z\s]+$/
+    const solo_texto = /^$|^[a-zA-ZÁ-ÿ\s]+$/;
+    const solo_numero = /^$|^[0-9\s]+$/;
+    const formato_correo = /^$|^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z\s]+$/;
 
       const stateDatePicker = () => {
         if (datePickerVisible==false){

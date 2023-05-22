@@ -100,7 +100,7 @@ export const mainMenu= () => {
           </TouchableOpacity>
           {imageSelected()}
       </View>
-      <OptionBar data={canciones}/>
+      {token !== null && <OptionBar data={canciones} token={token} />}
     </SafeAreaView>
   )
 }

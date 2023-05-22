@@ -6,7 +6,7 @@ import { buscarCanciones } from "../apis/SpotifyCalls";
 import { TrackProp } from "../props/trackProp";
 
 const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('No Surrender');
   const [results, setResults] = useState([]);
   const [data, setData] = useState([]);
   const handleSearch = (text) => {
