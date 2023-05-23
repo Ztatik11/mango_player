@@ -36,10 +36,29 @@ export const editProfileStyle = StyleSheet.create({
     flexDirection:'row',
     marginTop:10,
     marginBottom:10,
-    borderBottomWidth: 1,
-    borderBottomColor:'#f2f2f2',
+    borderColor:'#A98A8A',
     paddingBottom: 5,
     alignItems:'center',
+    borderWidth: 1
+  },
+  cuadrotexto_bien:{
+    flexDirection:'row',
+    marginTop:10,
+    marginBottom:10,
+    borderColor:'#A98A8A',
+    paddingBottom: 5,
+    alignItems:'center',
+    borderWidth: 1
+  },
+
+  cuadrotexto_mal:{
+    flexDirection:'row',
+    marginTop:10,
+    marginBottom:10,
+    borderColor:'red',
+    paddingBottom: 5,
+    alignItems:'center',
+    borderWidth: 1
   },
   textInput:{
     flex: 1,

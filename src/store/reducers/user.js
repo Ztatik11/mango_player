@@ -29,15 +29,15 @@ export const loginReducer = (state,action) => {
 */
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  isAuthenticated: false,
-  user: null,
-  error: null
-};
 
-const loginSlice = createSlice({
+
+export const loginSlice = createSlice({
   name: 'login',
-  initialState,
+  initialState:{
+    isAuthenticated: false,
+    user: null,
+    error: null
+  },
   reducers: {
     loginSuccess(state, action) {
       state.isAuthenticated = true;

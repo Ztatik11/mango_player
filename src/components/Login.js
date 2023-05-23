@@ -2,7 +2,7 @@ import React , {useState} from "react";
 import { Text,TextInput,View,TouchableOpacity } from "react-native";
 import {useNavigation} from "@react-navigation/native"
 import { useSelector, useDispatch } from "react-redux";
-import { loginSuccess, loginFailure, logout } from "../store/reducers/user";
+import { loginSuccess, loginFailure} from "../store/reducers/user";
 import axios from 'axios';
 import LoginStyle from "../styles/LoginStyle"
 import SafeAreaViewStyle from '../styles/SafeAreaViewStyle'
@@ -11,7 +11,8 @@ export const Login= () => {
     const {navigate} = useNavigation();
     const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
-
+    const isAuthenticated = useSelector(state => state.login.isAuthenticated);
+    const user = useSelector(state => state.login.user);
     const dispatch = useDispatch();
 
     const LoginUser = async () =>{

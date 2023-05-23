@@ -11,8 +11,10 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {editProfileStyle} from '../styles/EditprofileStyle';
+import axios from "axios";
 
 export const EditProfile = () => {
+  const [ID, setID] = useState(1);
   const [name, setName] = useState('');
   const [lastName, setlastName] = useState('');
   const [email, setEmail] = useState('');
@@ -20,16 +22,16 @@ export const EditProfile = () => {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [dateText, setdateText] = useState('');
 
-  const [validacion_nombre, setvalidacion_nombre] = useState(false);
-  const [validacion_apellido, setvalidacion_apellido] = useState(false);
-  const [validacion_correo, setvalidacion_correo] = useState(false);
+  const [validacion_nombre, setvalidacion_nombre] = useState(true);
+  const [validacion_apellido, setvalidacion_apellido] = useState(true);
+  const [validacion_correo, setvalidacion_correo] = useState(true);
 
   const solo_texto = /[a-zA-ZÁ-ÿ\s]+$/;
   const solo_numero = /[0-9\s]+$/;
   const formato_correo = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z\s]+$/;
 
   const updateUser = async () => {
-    const url = 'http://localhost:3000/';
+    const url = 'http://192.168.0.23:3000/updatedUser';
     const { data } = await axios.put(url, {
       ID: ID,
       Nombre: name,
@@ -61,7 +63,7 @@ export const EditProfile = () => {
       validacion_apellido == true &&
       validacion_correo == true
     ) {
-      postUser();
+      updateUser();
     } else {
       Alert.alert('HAS INTRODUCIDO DATOS INCORRECTOS');
     }
@@ -120,28 +122,25 @@ export const EditProfile = () => {
         <Text style={editProfileStyle.username}>Ztatik11</Text>
       </View>
       <View style={{padding:20}}>
-      <View style={editProfileStyle.form}>
+      <View style={validacion_nombre ? [editProfileStyle.cuadrotexto_bien]:[editProfileStyle.cuadrotexto_mal]}>
         <TextInput
           placeholder="First name"
-          placeholderTextColor="#666666"
+          placeholderTextColor="#C0B9B9"
           onChangeText={texto => validacion_campo_nombre(texto)}
-          style={editProfileStyle.textInput}
         />
       </View>
-      <View style={editProfileStyle.form}>
+      <View style={validacion_apellido ? [editProfileStyle.cuadrotexto_bien]:[editProfileStyle.cuadrotexto_mal]}>
         <TextInput
           placeholder="Last Name"
-          placeholderTextColor="#666666"
+          placeholderTextColor="#C0B9B9"
           onChangeText={texto => validacion_campo_apellido(texto)}
-          style={editProfileStyle.textInput}
         />
       </View>
-      <View style={editProfileStyle.form}>
+      <View style={validacion_correo ? [editProfileStyle.cuadrotexto_bien]:[editProfileStyle.cuadrotexto_mal]}>
         <TextInput
           placeholder="Email"
-          placeholderTextColor="#666666"
+          placeholderTextColor="#C0B9B9"
           onChangeText={texto => validacion_campo_correo(texto)}
-          style={editProfileStyle.textInput}
         />
       </View>
       <View style={editProfileStyle.form}>
@@ -158,7 +157,7 @@ export const EditProfile = () => {
       </View>
       <TouchableOpacity
         style={editProfileStyle.submitButton}
-        onPress={stateDatePicker}>
+        onPress={validacion_post}>
         <Text style={editProfileStyle.submitText}>SUBMIT</Text>
       </TouchableOpacity>
     </View>
