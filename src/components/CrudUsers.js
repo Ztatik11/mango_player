@@ -1,6 +1,7 @@
 import React , {useState,useEffect} from "react";
 import { FlatList, Text, View, TouchableOpacity, Alert } from 'react-native';
 import axios from "axios";
+import { Header } from '../props/header';
 
 export const CrudUsers= () => {
   const [records, setRecords] = useState([]);
@@ -25,7 +26,9 @@ export const CrudUsers= () => {
   }
 
   return (
+    
     <View>
+      <Header text={'Edicion de usuario'}/>
       <FlatList
         data={records}
         renderItem={({ item }) => (

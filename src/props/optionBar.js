@@ -48,8 +48,8 @@ export const OptionBar = ({ data, token }) => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => {
-          navigate('TrackList', {
-            data: data
+          navigate('PlayListlist', {
+            id: 1
           })
         }}>
           <Ionicons name="musical-notes-outline" size={30} color="white" />

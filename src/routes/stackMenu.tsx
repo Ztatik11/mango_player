@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
-import { Login,Register,musicPlayer,mainMenu,mainCrud,CrudUsers,TrackList,EditProfile} from "../components";
+import { Login,Register,musicPlayer,mainMenu,mainCrud,CrudUsers,TrackList,EditProfile,PlayListlist} from "../components";
 
 
 type Pages = {
@@ -10,7 +10,8 @@ type Pages = {
     MainCrud: undefined,
     CrudUsers: undefined,
     TrackList: undefined,
-    EditProfile: undefined
+    EditProfile: undefined,
+    PlayListlist:undefined
 };
 
 const Stack = createNativeStackNavigator<Pages>();
@@ -21,8 +22,9 @@ export const StackMenu = () => {
             headerShown: false,
             }} animation="flip"
             >
-            <Stack.Screen name="EditProfile" component={EditProfile}/>
             <Stack.Screen name="MainMenu" component={mainMenu}/>
+            <Stack.Screen name="PlayListlist" component={PlayListlist}/>
+            <Stack.Screen name="EditProfile" component={EditProfile}/>
             <Stack.Screen name="TrackList" component={TrackList}/>
             <Stack.Screen name="Player" component={musicPlayer}/>
             <Stack.Screen name="Login" component={Login}/>

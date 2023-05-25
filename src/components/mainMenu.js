@@ -5,11 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {launchImageLibrary} from 'react-native-image-picker';
 import {authorize} from 'react-native-app-auth';
 import {OptionBar} from '../props/optionBar'
-import LoginStyle from "../styles/LoginStyle"
+import MainMenuStyle from "../styles/MainMenuStyle";
 import SafeAreaViewStyle from '../styles/SafeAreaViewStyle'
-import axios from 'axios';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { buscarCanciones } from "../apis/SpotifyCalls";
+import { Header } from '../props/header';
 
 
 export const mainMenu= () => {
@@ -86,17 +85,18 @@ export const mainMenu= () => {
   }
   return(
     <SafeAreaView style= {SafeAreaViewStyle.container}>
-      <View style={LoginStyle.container}>
+      <Header text={'Mango Player'}/>
+      <View style={MainMenuStyle.container}>
           <Text>MENU PRINCIPAL</Text>
           <Text>MI NOMBRE ES ******** Y MI CORREO ES *********</Text>
-          <TouchableOpacity onPress={()=>navigate("Player")} style={LoginStyle.botonIngreso} >
-              <Text style={LoginStyle.botonIngresoText}>Player</Text>
+          <TouchableOpacity onPress={()=>navigate("Player")} style={MainMenuStyle.botonIngreso} >
+              <Text style={MainMenuStyle.botonIngresoText}>Player</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>navigate("Login")} style={LoginStyle.botonIngreso} >
-              <Text style={LoginStyle.botonIngresoText}>Cerrar sesion</Text>
+          <TouchableOpacity onPress={()=>navigate("Login")} style={MainMenuStyle.botonIngreso} >
+              <Text style={MainMenuStyle.botonIngresoText}>Cerrar sesion</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>select_image()} style={LoginStyle.botonIngreso} >
-              <Text style={LoginStyle.botonIngresoText}>AÑADIR IMAGEN</Text>
+          <TouchableOpacity onPress={()=>select_image()} style={MainMenuStyle.botonIngreso} >
+              <Text style={MainMenuStyle.botonIngresoText}>AÑADIR IMAGEN</Text>
           </TouchableOpacity>
           {imageSelected()}
       </View>

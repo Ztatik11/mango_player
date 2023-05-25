@@ -4,6 +4,7 @@ import trackListStyle from "../styles/trackListStyle";
 import { TrackProp } from "../props/trackProp";
 import { useRoute } from '@react-navigation/native';
 import songs from "../models/music";
+import { Header } from '../props/header';
 
 export const TrackList = () =>{
   const route = useRoute();
@@ -11,9 +12,7 @@ export const TrackList = () =>{
   console.log("DATOS DE MUSICA"+data)
   return(
     <View style={trackListStyle.container}>
-      <View style={trackListStyle.header}>
-        <Text style={trackListStyle.logo}>Musica</Text>
-      </View>
+      <Header text={'Playlist'}/>
       <FlatList 
         data={data}
         renderItem={({item,index}) => {

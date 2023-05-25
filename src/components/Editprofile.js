@@ -12,6 +12,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {editProfileStyle} from '../styles/EditprofileStyle';
 import axios from "axios";
+import { Header } from '../props/header';
 
 export const EditProfile = () => {
   const [ID, setID] = useState(1);
@@ -105,9 +106,7 @@ export const EditProfile = () => {
   return (
     <View style={editProfileStyle.container}>
       <View style={{alignItems: 'center'}}>
-        <View style={editProfileStyle.header}>
-          <Text style={editProfileStyle.logo}>Editar usuario</Text>
-        </View>
+        <Header text={'Editar usuario'}/>
         <View></View>
         <TouchableOpacity onPress={() => {}}>
           <View style={editProfileStyle.imageView}>
