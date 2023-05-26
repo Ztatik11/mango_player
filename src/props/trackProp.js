@@ -11,7 +11,7 @@ const {height,width} = Dimensions.get('window')
 export const TrackProp= ({item,index,data}) => {
   const navigation = useNavigation()
   return(
-      <TouchableOpacity style={[trackPropStyle.container,{marginBottom: index==data.length-1 ? 30:0},]} onPress={()=>{
+      <TouchableOpacity style={trackPropStyle.container} onPress={()=>{
         navigation.navigate("Player",{
           song: item,
           index: index,
