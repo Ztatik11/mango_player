@@ -1,22 +1,36 @@
 import React, { useState,useEffect } from 'react';
 import { Modal, View, TextInput, FlatList, Text, Button, TouchableOpacity} from 'react-native';
 import SearchModalStyle from '../styles/SearchModalStyle';
+import PlaylistModalStyle from '../styles/PlaylistModalStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { buscarCanciones } from "../apis/SpotifyCalls";
 import { TrackProp } from "../props/trackProp";
+import { fetchPlaylist } from '../apis/MangoPlayerCalls';
+import { PlayListProp } from '../props/playListProp';
 
 const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
   const [searchTerm, setSearchTerm] = useState('No Surrender');
-  const [results, setResults] = useState([]);
+  const [showSelectedSongModal, setShowSelectedSongModal] = useState(false);
+  const [selectedSong, setSelectedSong] = useState(null);
+  //const [results, setResults] = useState([]);
   const [data, setData] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
+
   const handleSearch = (text) => {
     setSearchTerm(text);
-    // Aquí puedes realizar la búsqueda en la API de Spotify con el término ingresado y actualizar los resultados en el estado "results"
-    // Puedes utilizar la función fetch o librerías como axios para realizar la solicitud HTTP
   };
 
   const handleClose = () => {
     toggleSearchModal(); // Llama a la función toggleSearchModal pasada como prop para cerrar el modal
+  };
+
+  const openSelectedSongModal = (songData) => {
+    setSelectedSong(songData);
+    setShowSelectedSongModal(true);
+  };
+
+  const closeSelectedSongModal = () => {
+    setShowSelectedSongModal(false);
   };
 
   useEffect(() => {
@@ -35,11 +49,24 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
         console.error("Error al buscar canciones:", error);
       }
     }
+
+    const fetchPlaylists = async ({id}) => {
+      try {
+      const fetchedPlaylists = await fetchPlaylist({ id });
+        
+        setPlaylists(fetchedPlaylists); // Establecer los datos de las playlists en el estado
+        
+      } catch (error) {
+        console.error('Error al obtener las playlists:', error);
+      }
+    };
+    fetchPlaylists({ id: 1 })
     fetchCanciones({searchTerm})
   }, [searchTerm]);
 
   return (
-    <Modal visible={isVisible} animationType="slide">
+    <View>
+      <Modal visible={isVisible} animationType="slide">
       <View style={SearchModalStyle.modalContainer}>
       <View style={SearchModalStyle.header}>
         <Text style={SearchModalStyle.logo}>Busqueda</Text>
@@ -52,13 +79,33 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
     <FlatList 
         data={data}
         renderItem={({item,index}) => {
-          return <TrackProp item={item} index={index} data={data}/>
+          return <TrackProp item={item} index={index} data={data} openSelectedSongModal={openSelectedSongModal}/>
         }} />
       <TouchableOpacity onPress={toggleSearchModal} style={SearchModalStyle.exitButton}>
         <Ionicons name="add-circle" size={50} color="#FFD369" style={{ transform: [{ rotate: '45deg' }] }} />
       </TouchableOpacity>
       </View>
     </Modal>
+    <Modal visible={showSelectedSongModal} animationType="slide" onRequestClose={closeSelectedSongModal}>
+        <View style={SearchModalStyle.modalContainer}>
+          {/* Mostrar los datos de la canción seleccionada */}
+          <Text>{selectedSong ? selectedSong.title : ''}</Text>
+          <Text>{selectedSong ? selectedSong.artist : ''}</Text>
+          <FlatList
+            data={playlists}
+            renderItem={({item, index}) => (
+              <PlayListProp
+                item={item}
+                index={index}
+              />
+            )}
+            keyExtractor={item => item.ID.toString()}
+          />
+        </View>
+      </Modal>
+    </View>
+    
+    
   );
 };
 

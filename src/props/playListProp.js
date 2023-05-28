@@ -10,8 +10,8 @@ const {height,width} = Dimensions.get('window')
 
 export const PlayListProp= ({item,index, onDelete }) => {
   const navigation = useNavigation()
-  const { ID,Nombre, Canciones } = item;
-  const numCanciones = Canciones.length;
+  const { ID ,Nombre, Canciones } = item;
+  const numCanciones = Canciones?.length || 0;
 
   const handleDelete = () => {
     onDelete(index,ID); // Llamar a la función onDelete con el índice del elemento

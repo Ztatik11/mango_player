@@ -1,8 +1,12 @@
 import axios from 'axios';
+import { Alert } from "react-native";
 
-export async function fetchPlaylist({id}) {
+export async function fetchPlaylist({ID_Usuario}) {
     const response = await axios.get('http://192.168.0.23:3000/getPlaylist', {
-      ID_Usuario: id,
+      params: {
+        ID_Usuario: ID_Usuario,
+      },
+      
     });
     console.log(response.data);
     const PlaylistsJson = response.data.map(item => ({
@@ -21,6 +25,26 @@ export async function fetchPlaylist({id}) {
       })),
     }));
     return PlaylistsJson
+  }
+
+  export async function addPlaylist(playListName,idUsuario) {
+    try {
+      const response = await axios.post('http://192.168.0.23:3000/postPlaylist', {
+        Nombre: playListName,
+        ID_Usuario: idUsuario
+      });
+  
+      if (response.status === 200) {
+        console.log('Nueva playlist creada:', response.data);
+        return response.data;
+      } else {
+        console.log('Error al crear la playlist:', response.data);
+        return null;
+      }
+    } catch (error) {
+      console.log('Error en la llamada a la API:', error);
+      throw new Error('Error en la llamada a la API');
+    }
   }
 
  export async function deletePlaylist(playListId) {

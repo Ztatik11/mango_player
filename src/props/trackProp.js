@@ -8,8 +8,13 @@ import {useNavigation} from "@react-navigation/native"
 
 const {height,width} = Dimensions.get('window')
 
-export const TrackProp= ({item,index,data}) => {
+export const TrackProp= ({item,index,data,openSelectedSongModal}) => {
   const navigation = useNavigation()
+
+  const handleAddPlaylist = () => {
+    openSelectedSongModal(item)
+  };
+
   return(
       <TouchableOpacity style={trackPropStyle.container} onPress={()=>{
         navigation.navigate("Player",{
@@ -23,8 +28,8 @@ export const TrackProp= ({item,index,data}) => {
           <Text style={trackPropStyle.name}>{item.title}</Text>
           <Text style={trackPropStyle.name}>{item.artist}</Text>
         </View>
-        <TouchableOpacity>
-          <Ionicons name="play-circle-sharp" size={75} color="red"/>
+        <TouchableOpacity onPress={handleAddPlaylist}>
+          <Ionicons name="list-outline" size={75} color="red"/>
         </TouchableOpacity>
       </TouchableOpacity>
   )
