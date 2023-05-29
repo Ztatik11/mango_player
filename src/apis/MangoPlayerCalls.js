@@ -46,6 +46,17 @@ export async function fetchPlaylist({ID_Usuario}) {
       throw new Error('Error en la llamada a la API');
     }
   }
+  export async function addSongsToPlaylist(playlistId, track){
+    return axios.post('http://192.168.0.23:3000/postPlaylistContent', { ID_Playlist: playlistId, Canciones: track })
+    .then(response => {
+      console.log(response.data);
+      // Aquí puedes manejar la respuesta del servidor
+    })
+    .catch(error => {
+      console.error(error);
+      // Aquí puedes manejar los errores
+    });
+  };
 
  export async function deletePlaylist(playListId) {
     try {

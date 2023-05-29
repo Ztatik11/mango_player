@@ -8,29 +8,21 @@ import {useNavigation} from "@react-navigation/native"
 
 const {height,width} = Dimensions.get('window')
 
-export const PlayListProp= ({item,index, onDelete }) => {
-  const navigation = useNavigation()
+export const AddPlaylistProp= ({item,onPlaylistPress}) => {
   const { ID ,Nombre, Canciones } = item;
   const numCanciones = Canciones?.length || 0;
 
-  const handleDelete = () => {
-    onDelete(index,ID); // Llamar a la función onDelete con el índice del elemento
+  const handlePress = () => {
+    onPlaylistPress(ID);
   };
 
   return(
-      <TouchableOpacity style={PlaylistPropStyle.container} onPress={()=>{
-        navigation.navigate("TrackList",{
-          data: item.Canciones
-        })
-      }}>
+      <TouchableOpacity style={PlaylistPropStyle.container} onPress={() => handlePress()}>
         <Ionicons style={PlaylistPropStyle.listIcon} name="musical-notes-outline" size={75} color="red"/>
         <View style={PlaylistPropStyle.nameView}>
           <Text style={PlaylistPropStyle.name}>{Nombre}</Text>
           <Text style={PlaylistPropStyle.tracks}>Canciones: {numCanciones}</Text>
         </View>
-        <TouchableOpacity onPress={handleDelete}>
-          <Ionicons name="trash-outline" style={PlaylistPropStyle.deleteIcon} size={50} color="red"/>
-        </TouchableOpacity>
       </TouchableOpacity>
   )
 }

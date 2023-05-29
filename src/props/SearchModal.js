@@ -4,9 +4,12 @@ import SearchModalStyle from '../styles/SearchModalStyle';
 import PlaylistModalStyle from '../styles/PlaylistModalStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { buscarCanciones } from "../apis/SpotifyCalls";
+import { addSongsToPlaylist } from "../apis/SpotifyCalls";
 import { TrackProp } from "../props/trackProp";
+import { TrackPropAddPlaylist } from "../props/trackPropAddPlaylist";
 import { fetchPlaylist } from '../apis/MangoPlayerCalls';
-import { PlayListProp } from '../props/playListProp';
+import { AddPlaylistProp } from '../props/addPlaylistProp';
+import {Header} from '../props/header';
 
 const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
   const [searchTerm, setSearchTerm] = useState('No Surrender');
@@ -15,6 +18,7 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
   //const [results, setResults] = useState([]);
   const [data, setData] = useState([]);
   const [playlists, setPlaylists] = useState([]);
+  const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
 
   const handleSearch = (text) => {
     setSearchTerm(text);
@@ -27,6 +31,12 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
   const openSelectedSongModal = (songData) => {
     setSelectedSong(songData);
     setShowSelectedSongModal(true);
+  };
+
+  const getPlaylistID = async (playlistId) =>{
+    console.log(playlistId)
+    setSelectedPlaylistId(playlistId);
+    await addSongsToPlaylist(selectedPlaylistId,selectedSong)
   };
 
   const closeSelectedSongModal = () => {
@@ -87,16 +97,17 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
       </View>
     </Modal>
     <Modal visible={showSelectedSongModal} animationType="slide" onRequestClose={closeSelectedSongModal}>
+    <Header text={'¿Dónde quieres introducir la canción?'} />
         <View style={SearchModalStyle.modalContainer}>
           {/* Mostrar los datos de la canción seleccionada */}
-          <Text>{selectedSong ? selectedSong.title : ''}</Text>
-          <Text>{selectedSong ? selectedSong.artist : ''}</Text>
+          <TrackPropAddPlaylist item={selectedSong}/>
           <FlatList
             data={playlists}
             renderItem={({item, index}) => (
-              <PlayListProp
+              <AddPlaylistProp
                 item={item}
                 index={index}
+                onPlaylistPress={getPlaylistID}
               />
             )}
             keyExtractor={item => item.ID.toString()}
