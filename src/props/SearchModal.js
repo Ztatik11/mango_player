@@ -4,10 +4,9 @@ import SearchModalStyle from '../styles/SearchModalStyle';
 import PlaylistModalStyle from '../styles/PlaylistModalStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { buscarCanciones } from "../apis/SpotifyCalls";
-import { addSongsToPlaylist } from "../apis/SpotifyCalls";
 import { TrackProp } from "../props/trackProp";
 import { TrackPropAddPlaylist } from "../props/trackPropAddPlaylist";
-import { fetchPlaylist } from '../apis/MangoPlayerCalls';
+import { fetchPlaylist,addSongsToPlaylist } from '../apis/MangoPlayerCalls';
 import { AddPlaylistProp } from '../props/addPlaylistProp';
 import {Header} from '../props/header';
 
@@ -35,8 +34,9 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
 
   const getPlaylistID = async (playlistId) =>{
     console.log(playlistId)
-    setSelectedPlaylistId(playlistId);
-    await addSongsToPlaylist(selectedPlaylistId,selectedSong)
+    //setSelectedPlaylistId(playlistId);
+    console.log("Mi madre es:"+playlistId)
+    await addSongsToPlaylist(playlistId,selectedSong)
   };
 
   const closeSelectedSongModal = () => {
