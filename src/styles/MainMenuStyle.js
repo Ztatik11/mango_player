@@ -6,8 +6,10 @@ const MainMenuStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#555',
-    alignItems: 'center',
+  },
+  buttonContainer: {
     justifyContent: 'center',
+    marginTop:'25%'
   },
   input: {
     padding: 15,
@@ -28,6 +30,18 @@ const MainMenuStyle = StyleSheet.create({
   botonIngresoText: {
     textAlign: 'center',
     color: 'white',
+  },
+
+  column: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  row: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
 export default MainMenuStyle;

@@ -72,16 +72,16 @@ export async function deletePlaylist(playListId) {
   }
 }
 
-export async function deletePlaylist(playListId,track) {
+export async function deleteTrack(trackId,track) {
   try {
     const response = await axios.delete(
-      'http://192.168.0.23:3000/deletePlaylist',
+      'http://192.168.0.23:3000/deletePlaylistSong',
       {
-        playListId: playListId,
+        playListId: trackId,
         track: track,
       }
     );
-    Alert.alert('PlayList BORRADO');
+    Alert.alert('Cancion BORRADA');
     return response.data;
   } catch (error) {
     console.error(error);
