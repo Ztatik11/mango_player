@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
-import { Login,Register,musicPlayer,mainMenu,mainCrud,CrudUsers,TrackList,EditProfile,PlayListlist} from "../components";
+import { Login,Register,musicPlayer,mainMenu,mainCrud,CrudUsers,TrackList,EditProfile,PlayListlist,GenreTrackList} from "../components";
 
 
 type Pages = {
@@ -11,7 +11,8 @@ type Pages = {
     CrudUsers: undefined,
     TrackList: undefined,
     EditProfile: undefined,
-    PlayListlist:undefined
+    PlayListlist:undefined,
+    GenretrackList:undefined
 };
 
 const Stack = createNativeStackNavigator<Pages>();
@@ -24,6 +25,7 @@ export const StackMenu = () => {
             >
             <Stack.Screen name="MainMenu" component={mainMenu}/>
             <Stack.Screen name="PlayListlist" component={PlayListlist}/>
+            <Stack.Screen name="GenretrackList" component={GenreTrackList}/>
             <Stack.Screen name="EditProfile" component={EditProfile}/>
             <Stack.Screen name="TrackList" component={TrackList}/>
             <Stack.Screen name="Player" component={musicPlayer}/>

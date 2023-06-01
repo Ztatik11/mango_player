@@ -7,3 +7,4 @@ export {mainCrud} from "./mainCrud";
 export {CrudUsers} from "./CrudUsers";
 export {TrackList} from "./trackList";
 export { EditProfile } from "./Editprofile";
+export {GenreTrackList} from "./GenreTracklist"

@@ -33,6 +33,7 @@ export const mainMenu = () => {
       imageLink:
         'https://i0.wp.com/con2bemolesradio.com/wp-content/uploads/2017/11/ROCK.jpg?fit=350%2C401&ssl=1',
       header: 'Genero Rock',
+
     },
     {
       title: 'Rock',
@@ -119,7 +120,7 @@ export const mainMenu = () => {
 
     fetchCanciones();
   }, [token]);
-
+/*
   const select_image = async () => {
     const resource = await launchImageLibrary('photo');
     console.log(resource.assets[0].uri);
@@ -134,11 +135,13 @@ export const mainMenu = () => {
       return null;
     }
   };
+  */
   return (
     <SafeAreaView style={SafeAreaViewStyle.container}>
       <Header text={'Mango Player'} />
       <View style={MainMenuStyle.container}>
         <View style={MainMenuStyle.buttonContainer}>
+        {token !== null && (
           <FlatList
             data={genreButtonData}
             numColumns={2}
@@ -148,10 +151,12 @@ export const mainMenu = () => {
                   imageLink={item.imageLink}
                   header={item.header}
                   genre={item.title}
+                  token={token}
+                  searchTerm={item.searchTerm}
                 />
               );
             }}
-          />
+          />)}
         </View>
       </View>
       {token !== null && <OptionBar data={canciones} token={token} />}
