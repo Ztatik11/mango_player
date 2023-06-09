@@ -104,7 +104,7 @@ export const Register= () => {
     return(
         <View style={RegisterStyle.container}>
             
-            <Text>RegisterStyle</Text>
+            <Text style={RegisterStyle.title}>REGISTRATE</Text>
             <TextInput 
                 style={RegisterStyle.cuadrotexto_bien}
                 value={user}
@@ -146,7 +146,7 @@ export const Register= () => {
                 <Text style={RegisterStyle.botonIngresoText}>Registrar</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>navigate("Login")}>
-                <Text style={{color: "blue"}}>Ya tengo una cuenta</Text>
+                <Text style={{color: "#FFD369"}}>Ya tengo una cuenta</Text>
             </TouchableOpacity>
         </View>
     )

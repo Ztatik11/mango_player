@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {Alert} from 'react-native';
+const ipAddress='192.168.0.23'
 
 export async function fetchPlaylist({ID_Usuario}) {
-  const response = await axios.get('http://192.168.0.23:3000/getPlaylist', {
+  const response = await axios.get('http://'+ipAddress+':3000/getPlaylist', {
     params: {
       ID_Usuario: ID_Usuario,
     },
@@ -26,9 +27,14 @@ export async function fetchPlaylist({ID_Usuario}) {
   return PlaylistsJson;
 }
 
+export async function fetchUsers() {
+  const response = await axios.get('http://'+ipAddress+':3000/getUsers');
+  return response.data;
+}
+
 export async function addPlaylist(playListName, idUsuario) {
   try {
-    const response = await axios.post('http://192.168.0.23:3000/postPlaylist', {
+    const response = await axios.post('http://'+ipAddress+':3000/postPlaylist', {
       Nombre: playListName,
       ID_Usuario: idUsuario,
     });
@@ -49,7 +55,7 @@ export async function addSongsToPlaylist(playlistId,track) {
   try {
     console.log('He entrado dentro');
     const response = axios.post(
-      'http://192.168.0.23:3000/postPlaylistContent',
+      'http://'+ipAddress+':3000/postPlaylistContent',
       {ID_Playlist: playlistId, Canciones: track},
     );
     console.log(response.data);
@@ -62,7 +68,7 @@ export async function addSongsToPlaylist(playlistId,track) {
 export async function deletePlaylist(playListId) {
   try {
     const response = await axios.delete(
-      'http://192.168.0.23:3000/deletePlaylist',
+      'http://'+ipAddress+':3000/deletePlaylist',
       {data: {id: playListId}},
     );
     Alert.alert('PlayList BORRADO');
@@ -75,7 +81,7 @@ export async function deletePlaylist(playListId) {
 export async function deleteTrack(trackId,track) {
   try {
     const response = await axios.delete(
-      'http://192.168.0.23:3000/deletePlaylistSong',
+      'http://'+ipAddress+':3000/deletePlaylistSong',
       {
         playListId: trackId,
         track: track,
@@ -87,3 +93,27 @@ export async function deleteTrack(trackId,track) {
     console.error(error);
   }
 }
+
+export async function deleteUser(userId) {
+  try {
+    const response = await axios.delete('http://'+ipAddress+':3000/DeleteUser', { data: { id: userId } });
+    Alert.alert("USUARIO BORRADO")
+    setRecords(records.filter(record => record.ID !== userId));
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function updateUser (ID,name,lastName,email,date) {
+  const url = 'http://192.168.0.23:3000/updatedUser';
+  const { data } = await axios.put(url, {
+    ID: ID,
+    Nombre: name,
+    Apellidos: lastName,
+    Email: email,
+    Fecha_nacimiento: date,
+  });
+
+  console.log('Usuario actualizado:', data);
+};

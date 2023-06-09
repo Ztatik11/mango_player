@@ -29,7 +29,7 @@ export const TrackProp= ({item,index,data,openSelectedSongModal}) => {
           <Text style={trackPropStyle.name}>{item.artist}</Text>
         </View>
         <TouchableOpacity onPress={handleAddPlaylist}>
-          <Ionicons name="list-outline" size={75} color="red"/>
+          <Ionicons name="list-outline" size={75} color="#FFD369"/>
         </TouchableOpacity>
       </TouchableOpacity>
   )

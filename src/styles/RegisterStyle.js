@@ -2,12 +2,19 @@ import { StyleSheet } from "react-native";
 
 
 const generalStyle = StyleSheet.create({
+
   container:{
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#555',
     alignItems: 'center',
     justifyContent: 'center'
   },
+
+  title: {
+    fontSize:40,
+    fontWeight:'700',
+    color: '#FFD369'
+},
 
   cuadrotexto_bien:{
     padding: 15,
@@ -15,8 +22,9 @@ const generalStyle = StyleSheet.create({
     width: '60%',
     minWidth: '60%',
     marginVertical:15,
-    borderWidth:1,
-    borderColor:'grey'
+    borderWidth:2,
+    borderColor:'grey',
+    borderRadius: 50
   },
 
   cuadrotexto_mal:{
@@ -25,8 +33,9 @@ const generalStyle = StyleSheet.create({
     width: '60%',
     minWidth: '60%',
     marginVertical:15,
-    borderWidth:1,
-    borderColor:'#E02222'
+    borderWidth:2,
+    borderColor:'#E02222',
+    borderRadius: 50
   },
 
   botonIngreso:{

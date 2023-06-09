@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
-import { Login,Register,musicPlayer,mainMenu,mainCrud,CrudUsers,TrackList,EditProfile,PlayListlist,GenreTrackList} from "../components";
+import { Login,Register,musicPlayer,mainMenu,mainCrud,CrudUsers,TrackList,EditProfile,PlayListlist,GenreTrackList,Profile} from "../components";
 
 
 type Pages = {
@@ -12,7 +12,8 @@ type Pages = {
     TrackList: undefined,
     EditProfile: undefined,
     PlayListlist:undefined,
-    GenretrackList:undefined
+    GenretrackList:undefined,
+    Profile:undefined
 };
 
 const Stack = createNativeStackNavigator<Pages>();
@@ -23,16 +24,18 @@ export const StackMenu = () => {
             headerShown: false,
             }} animation="flip"
             >
+            <Stack.Screen name="CrudUsers" component={CrudUsers} options={{stackPresentation: 'modal'}}/>
+            <Stack.Screen name="Register" component={Register}/>
             <Stack.Screen name="MainMenu" component={mainMenu}/>
+            <Stack.Screen name="Profile" component={Profile}/>
             <Stack.Screen name="PlayListlist" component={PlayListlist}/>
             <Stack.Screen name="GenretrackList" component={GenreTrackList}/>
             <Stack.Screen name="EditProfile" component={EditProfile}/>
             <Stack.Screen name="TrackList" component={TrackList}/>
             <Stack.Screen name="Player" component={musicPlayer}/>
             <Stack.Screen name="Login" component={Login}/>
-            <Stack.Screen name="Register" component={Register}/>
             <Stack.Screen name="MainCrud" component={mainCrud} options={{stackPresentation: 'modal'}}/>
-            <Stack.Screen name="CrudUsers" component={CrudUsers} options={{stackPresentation: 'modal'}}/>
+            
         </Stack.Navigator>
     )
 }

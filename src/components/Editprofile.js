@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,13 +9,13 @@ import {
   Alert,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {launchImageLibrary} from 'react-native-image-picker';
+import{updateUser} from '../apis/MangoPlayerCalls'
 import {editProfileStyle} from '../styles/EditprofileStyle';
 import axios from "axios";
 import { Header } from '../props/header';
 
 export const EditProfile = () => {
-  const [ID, setID] = useState(1);
+  const [ID, setID] = useState();
   const [name, setName] = useState('');
   const [lastName, setlastName] = useState('');
   const [email, setEmail] = useState('');
@@ -31,18 +31,17 @@ export const EditProfile = () => {
   const solo_numero = /[0-9\s]+$/;
   const formato_correo = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z\s]+$/;
 
-  const updateUser = async () => {
-    const url = 'http://192.168.0.23:3000/updatedUser';
-    const { data } = await axios.put(url, {
-      ID: ID,
-      Nombre: name,
-      Apellidos: lastName,
-      Email: email,
-      Fecha_nacimiento: date,
-    });
-  
-    console.log('Usuario actualizado:', data);
-  };
+  useEffect(() => {
+    if (route.params && route.params.user) {
+      const { ID, Nombre, Apellidos, Email, Fecha_nacimiento } = route.params.user;
+      setID(ID);
+      setName(Nombre);
+      setlastName(Apellidos);
+      setEmail(Email);
+      setDate(new Date(Fecha_nacimiento));
+      setdateText(new Date(Fecha_nacimiento).toLocaleDateString());
+    }
+  }, [route.params]);
 
   const stateDatePicker = () => {
     if (datePickerVisible == false) {
@@ -64,7 +63,7 @@ export const EditProfile = () => {
       validacion_apellido == true &&
       validacion_correo == true
     ) {
-      updateUser();
+      updateUser(ID,name,lastName,email,date);
     } else {
       Alert.alert('HAS INTRODUCIDO DATOS INCORRECTOS');
     }

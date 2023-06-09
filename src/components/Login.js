@@ -11,8 +11,8 @@ export const Login= () => {
     const {navigate} = useNavigation();
     const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
-    const isAuthenticated = useSelector(state => state.login.isAuthenticated);
-    const user = useSelector(state => state.login.user);
+    //const isAuthenticated = useSelector(state => state.login.isAuthenticated);
+    //const user = useSelector(state => state.login.user);
     const dispatch = useDispatch();
 
     const LoginUser = async () =>{

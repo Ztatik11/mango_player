@@ -5,7 +5,7 @@ const PlaylistModalStyle = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    backgroundColor: '#392F2F',
     padding: 20,
     marginHorizontal: '10%',
     height: '40%',

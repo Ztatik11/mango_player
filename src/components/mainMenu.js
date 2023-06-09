@@ -36,34 +36,34 @@ export const mainMenu = () => {
 
     },
     {
-      title: 'Rock',
+      title: 'Pop',
       imageLink:
-        'https://i0.wp.com/con2bemolesradio.com/wp-content/uploads/2017/11/ROCK.jpg?fit=350%2C401&ssl=1',
-      header: 'Genero Rock',
+        'https://img.freepik.com/vector-premium/estilo-arte-pop-radio-retro-reproductor-musica_24908-61830.jpg',
+      header: 'Genero Pop',
     },
     {
-      title: 'Rock',
+      title: 'Tecno',
       imageLink:
-        'https://i0.wp.com/con2bemolesradio.com/wp-content/uploads/2017/11/ROCK.jpg?fit=350%2C401&ssl=1',
-      header: 'Genero Rock',
+        'https://rocketsmusik.sfo3.digitaloceanspaces.com/uploads/2015/05/techno3.jpg',
+      header: 'Genero Tecno',
     },
     {
-      title: 'Rock',
+      title: 'HipHop',
       imageLink:
-        'https://i0.wp.com/con2bemolesradio.com/wp-content/uploads/2017/11/ROCK.jpg?fit=350%2C401&ssl=1',
-      header: 'Genero Rock',
+        'https://www.visittheusa.mx/sites/default/files/styles/hero_l/public/images/hero_media_image/2018-03/e23f197d1fc1118afa9ddfcd21c3d85a.jpeg?itok=DVYIhCJ6',
+      header: 'HipHop',
     },
     {
-      title: 'Rock',
+      title: 'Latina',
       imageLink:
-        'https://i0.wp.com/con2bemolesradio.com/wp-content/uploads/2017/11/ROCK.jpg?fit=350%2C401&ssl=1',
-      header: 'Genero Rock',
+        'https://hablacultura.com/wp-content/uploads/2018/11/fonsi-yankee-despacito216.jpg',
+      header: 'Genero latino',
     },
     {
-      title: 'Rock',
+      title: 'Jazz',
       imageLink:
-        'https://i0.wp.com/con2bemolesradio.com/wp-content/uploads/2017/11/ROCK.jpg?fit=350%2C401&ssl=1',
-      header: 'Genero Rock',
+        'https://neomusica.es/blog/wp-content/uploads/2021/07/MU%CC%81SICOS-DEL-JAZZ.jpg',
+      header: 'Genero Jazz',
     },
   ];
   //console.log(state)

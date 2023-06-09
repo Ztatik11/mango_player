@@ -78,14 +78,18 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
     <View>
       <Modal visible={isVisible} animationType="slide">
       <View style={SearchModalStyle.modalContainer}>
-      <View style={SearchModalStyle.header}>
-        <Text style={SearchModalStyle.logo}>Busqueda</Text>
-      </View>
+      <Header text={'Busqueda'} />
+      <View  style={SearchModalStyle.searchContainer}>
+      
       <TextInput
+          style={SearchModalStyle.input}
           placeholder="Introduce que quieres buscar..."
           value={searchTerm}
           onChangeText={handleSearch}
       />
+      <Ionicons name="search" size={24} color="#FFD369"/>
+      </View>
+      
     <FlatList 
         data={data}
         renderItem={({item,index}) => {
@@ -100,7 +104,9 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
     <Header text={'¿Dónde quieres introducir la canción?'} />
         <View style={SearchModalStyle.modalContainer}>
           {/* Mostrar los datos de la canción seleccionada */}
+          <Text style={SearchModalStyle.trackToAdd}>Cancion</Text>
           <TrackPropAddPlaylist item={selectedSong}/>
+          <Text style={SearchModalStyle.trackToAdd}>Playlists</Text>
           <FlatList
             data={playlists}
             renderItem={({item, index}) => (

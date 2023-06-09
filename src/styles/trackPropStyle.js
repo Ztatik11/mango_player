@@ -11,7 +11,7 @@ const trackPropStyle = StyleSheet.create({
       elevation: 5,
       marginTop:20,
       alignSelf:'center',
-      backgroundColor:'#fff',
+      backgroundColor:'#392F2F',
       borderRadius: 10,
       flexDirection:'row',
       alignItems:'center'
@@ -30,7 +30,7 @@ const trackPropStyle = StyleSheet.create({
     name:{
       fontSize:20,
       fontWeight: '600',
-      color: '#000'
+      color: 'white'
     },
     singer:{
 

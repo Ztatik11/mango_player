@@ -10,7 +10,7 @@ const PlaylistPropStyle = StyleSheet.create({
       elevation: 5,
       marginTop:20,
       alignSelf:'center',
-      backgroundColor:'#fff',
+      backgroundColor:'#7E6B40',
       borderRadius: 10,
       flexDirection:'row',
       alignItems:'center'
@@ -20,7 +20,8 @@ const PlaylistPropStyle = StyleSheet.create({
       height:90,
       borderRadius:10,
       marginTop:10,
-      marginLeft:15
+      marginLeft:15,
+      color:"#FFD369"
     },
     nameView:{
       paddingLeft:2,
