@@ -2,11 +2,11 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity,StyleSheet } from 'react-native';
 import { useNavigation,useRoute } from '@react-navigation/native';
 import ProfileStyle from '../styles/ProfileStyle';
-import {Header} from '../props/header';
+
 
 
   export const Profile = () => {
-    const isAdmin = true; // Cambia a false si el usuario no es administrador
+    const isAdmin = true;
     const {navigate} = useNavigation();
     const route = useRoute();
     const { user } = route.params;

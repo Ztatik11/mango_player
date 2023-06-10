@@ -5,8 +5,6 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  StyleSheet,
-  Dimensions,
 } from 'react-native';
 import {Header} from '../props/header';
 import {deleteUser, fetchUsers} from '../apis/MangoPlayerCalls';

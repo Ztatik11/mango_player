@@ -13,10 +13,7 @@ export const PlaylistCreation = ({ onPlaylistCreate }) => {
         const newPlaylist = await addPlaylist(playlistName, 1);
     
         if (newPlaylist) {
-          // La playlist se creó exitosamente
           onPlaylistCreate(newPlaylist);
-    
-          // Limpiar el campo de entrada y cerrar la ventana emergente
           setPlaylistName('');
           setModalVisible(false);
         }

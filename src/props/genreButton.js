@@ -1,11 +1,7 @@
-import { View,Text,FlatList,TouchableOpacity,Image } from "react-native";
-import React, {useState} from 'react';
+import { Text,TouchableOpacity,Image } from "react-native";
+import React from 'react';
 import GenreButtonStyle from "../styles/GenreButtonStyle";
-import { PlaylistTrackProp } from "../props/playlisttrackProp";
 import { useRoute } from '@react-navigation/native';
-import songs from "../models/music";
-import { Header } from '../props/header';
-import { deleteTrack } from '../apis/MangoPlayerCalls';
 import {buscarCanciones} from '../apis/SpotifyCalls'
 import {useNavigation} from '@react-navigation/native';
 

@@ -1,7 +1,7 @@
 import React , {useState} from "react";
 import { Text,TextInput,View,TouchableOpacity } from "react-native";
-import {useNavigation} from "@react-navigation/native"
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native"
+import { useDispatch } from "react-redux";
 import { loginSuccess, loginFailure} from "../store/reducers/user";
 import axios from 'axios';
 import LoginStyle from "../styles/LoginStyle"

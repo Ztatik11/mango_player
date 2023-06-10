@@ -53,10 +53,8 @@ export const Register= () => {
         } catch (error) {
         console.error(error);
         if (error.response.status === 400) {
-          // Si hay un mensaje de error específico enviado desde el servidor, mostrarlo al usuario
           Alert.alert("Este usuario ya existe");
         } else {
-          // Si el error es de otro tipo, mostrar un mensaje de error genérico
           Alert.alert('Se produjo un error al registrar el usuario');
         }
         }

@@ -1,5 +1,5 @@
-import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, StyleSheet, FlatList, Button } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, TouchableOpacity, StyleSheet} from 'react-native';
+import React, { useState } from 'react';
 import musicPlayerStyle from '../styles/OptionBarStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';

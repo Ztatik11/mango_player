@@ -1,11 +1,10 @@
-import { View,Text,FlatList } from "react-native";
+import { View,FlatList } from "react-native";
 import React, {useState} from 'react';
 import trackListStyle from "../styles/trackListStyle";
 import { TrackProp } from "../props/trackProp";
 import { useRoute } from '@react-navigation/native';
-import songs from "../models/music";
 import { Header } from '../props/header';
-import { deleteTrack } from '../apis/MangoPlayerCalls';
+
 
 
 

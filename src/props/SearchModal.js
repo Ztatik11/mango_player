@@ -14,17 +14,15 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
   const [searchTerm, setSearchTerm] = useState('No Surrender');
   const [showSelectedSongModal, setShowSelectedSongModal] = useState(false);
   const [selectedSong, setSelectedSong] = useState(null);
-  //const [results, setResults] = useState([]);
   const [data, setData] = useState([]);
   const [playlists, setPlaylists] = useState([]);
-  const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
 
   const handleSearch = (text) => {
     setSearchTerm(text);
   };
 
   const handleClose = () => {
-    toggleSearchModal(); // Llama a la función toggleSearchModal pasada como prop para cerrar el modal
+    toggleSearchModal();
   };
 
   const openSelectedSongModal = (songData) => {
@@ -33,9 +31,6 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
   };
 
   const getPlaylistID = async (playlistId) =>{
-    console.log(playlistId)
-    //setSelectedPlaylistId(playlistId);
-    console.log("Mi madre es:"+playlistId)
     await addSongsToPlaylist(playlistId,selectedSong)
   };
 
@@ -51,11 +46,9 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
         if (cancionesResult !== null) {
           setData(cancionesResult);
         } else {
-          // Manejar el caso en que cancionesResult sea null
           console.error("Error al buscar canciones");
         }
       } catch (error) {
-        // Manejar el error si ocurre algún problema en la búsqueda de canciones
         console.error("Error al buscar canciones:", error);
       }
     }
@@ -64,7 +57,7 @@ const SearchModal = ({ toggleSearchModal , isVisible, token }) => {
       try {
       const fetchedPlaylists = await fetchPlaylist({ id });
         
-        setPlaylists(fetchedPlaylists); // Establecer los datos de las playlists en el estado
+        setPlaylists(fetchedPlaylists);
         
       } catch (error) {
         console.error('Error al obtener las playlists:', error);

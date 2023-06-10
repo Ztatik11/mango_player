@@ -106,36 +106,13 @@ export const mainMenu = () => {
       if (token === null) {
         authLogin();
       } else {
-        /*
-        const cancionesResult = await buscarCanciones({ token });
-        if (cancionesResult !== null) {
-          setCanciones(cancionesResult);
-        } else {
-          // Manejar el error si ocurriera algún problema en la búsqueda de canciones
-          console.error("Error al buscar canciones");
-        }
-        */
+        
       }
     };
 
     fetchCanciones();
   }, [token]);
-/*
-  const select_image = async () => {
-    const resource = await launchImageLibrary('photo');
-    console.log(resource.assets[0].uri);
-    console.log(resource);
-    setSource(resource.assets[0].uri);
-  };
 
-  const imageSelected = () => {
-    if (source) {
-      return <Image source={{uri: source}} style={{width: 200, height: 200}} />;
-    } else {
-      return null;
-    }
-  };
-  */
   return (
     <SafeAreaView style={SafeAreaViewStyle.container}>
       <Header text={'Mango Player'} />

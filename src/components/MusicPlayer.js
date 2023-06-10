@@ -6,7 +6,6 @@ import React, {useEffect, useState, useRef} from 'react'
 import {OptionBar} from '../props/optionBar'
 import TrackPlayer, {Capability,RepeatMode,Event,State,usePlaybackState,useProgress,useTrackPlayerEvents} from 'react-native-track-player';
 import musicPlayerStyle from '../styles/music_player'
-import songs from '../models/music';
 import { useRoute } from '@react-navigation/native';
 
 const setUpPlayer = async (songs) => {

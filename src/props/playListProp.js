@@ -1,12 +1,9 @@
-import React , {useState,useEffect} from "react";
-import {Text, View,FlatList,Image,TouchableOpacity,Alert,Dimensions} from 'react-native';
-import trackStyle from "../styles/trackPropStyle";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React from "react";
+import {Text, View,TouchableOpacity,Dimensions} from 'react-native';
 import PlaylistPropStyle from "../styles/PlaylistPropStyle";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from "@react-navigation/native"
 
-const {height,width} = Dimensions.get('window')
 
 export const PlayListProp= ({item,index, onDelete }) => {
   const navigation = useNavigation()

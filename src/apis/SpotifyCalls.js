@@ -33,5 +33,3 @@ export const buscarCanciones = async ({token,searchTerm}) => {
       return null
     }
 };
-
-//https://api.spotify.com/v1/search?q=track:No Surrender&type=track&market=ES&limit=10&include_external=audio
