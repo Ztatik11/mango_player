@@ -50,7 +50,7 @@ export const OptionBar = ({ data, token }) => {
           <Ionicons name="musical-notes-outline" size={30} color="#FFD369" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {navigate('Profile');}}>
+        <TouchableOpacity onPress={() => {navigate('Profile', { user: User });}}>
           <Ionicons name="person-circle-outline" size={30} color="#FFD369" />
         </TouchableOpacity>
       </View>

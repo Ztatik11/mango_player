@@ -11,11 +11,13 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 import{updateUser} from '../apis/MangoPlayerCalls'
 import {editProfileStyle} from '../styles/EditprofileStyle';
-import axios from "axios";
+
 import { Header } from '../props/header';
+import { useNavigation,useRoute } from '@react-navigation/native';
 
 export const EditProfile = () => {
   const [ID, setID] = useState();
+  const [user, setUsers] = useState('');
   const [name, setName] = useState('');
   const [lastName, setlastName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,13 +30,14 @@ export const EditProfile = () => {
   const [validacion_correo, setvalidacion_correo] = useState(true);
 
   const solo_texto = /[a-zA-ZÁ-ÿ\s]+$/;
-  const solo_numero = /[0-9\s]+$/;
   const formato_correo = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-z\s]+$/;
-
+  const {navigate} = useNavigation();
+  const route = useRoute();
   useEffect(() => {
     if (route.params && route.params.user) {
-      const { ID, Nombre, Apellidos, Email, Fecha_nacimiento } = route.params.user;
+      const { ID,Usuario, Nombre, Apellidos, Email, Fecha_nacimiento } = route.params.user;
       setID(ID);
+      setUsers(Usuario)
       setName(Nombre);
       setlastName(Apellidos);
       setEmail(Email);
@@ -64,6 +67,7 @@ export const EditProfile = () => {
       validacion_correo == true
     ) {
       updateUser(ID,name,lastName,email,date);
+      navigate('back')
     } else {
       Alert.alert('HAS INTRODUCIDO DATOS INCORRECTOS');
     }
@@ -117,7 +121,7 @@ export const EditProfile = () => {
               imageStyle={{borderRadius: 15}}></ImageBackground>
           </View>
         </TouchableOpacity>
-        <Text style={editProfileStyle.username}>Ztatik11</Text>
+        <Text style={editProfileStyle.username}>{user}</Text>
       </View>
       <View style={{padding:20}}>
       <View style={validacion_nombre ? [editProfileStyle.cuadrotexto_bien]:[editProfileStyle.cuadrotexto_mal]}>

@@ -11,9 +11,11 @@ import {
 import {Header} from '../props/header';
 import {deleteUser, fetchUsers} from '../apis/MangoPlayerCalls';
 import crudUserStyle from '../styles/CrudUserStyle';
+import { useNavigation} from '@react-navigation/native';
 
 export const CrudUsers = () => {
   const [users, setUsers] = useState([]);
+  const {navigate} = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,13 +26,18 @@ export const CrudUsers = () => {
   }, []);
 
   async function handledeleteUser(userId) {
-    deleteUser(userId);
-    Alert.alert('USUARIO BORRADO');
+    try {
+      await deleteUser(userId);
+      Alert.alert('USUARIO BORRADO');
+      setUsers(prevUsers => prevUsers.filter(user => user.ID !== userId));
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
     <View>
-      <Header text={'Edicion de usuario'} />
+      <Header text={'CRUD Usuario'} />
       <FlatList
         data={users}
         renderItem={({item}) => (
@@ -42,7 +49,7 @@ export const CrudUsers = () => {
       </View>
       <View style={crudUserStyle.buttonContainer}>
         <TouchableOpacity style={crudUserStyle.editButton}>
-          <Text style={crudUserStyle.buttonText} onPress={() => navigation.navigate('EditProfile', { user: item })}>Editar</Text>
+          <Text style={crudUserStyle.buttonText} onPress={() => navigate('EditProfile', { user: item })}>Editar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={crudUserStyle.deleteButton} onPress={() => { handledeleteUser(item.ID) }}>
           <Text style={crudUserStyle.buttonText}>Borrar</Text>
@@ -55,43 +62,5 @@ export const CrudUsers = () => {
     </View>
   );
 };
-const crudUserStyle = StyleSheet.create({
-  userContainer: {
-    backgroundColor: '#f2f2f2',
-    padding: 10,
-    marginBottom: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    elevation:5
-  },
-  userDataContainer: {
-    flex: 1,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  userId: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  userInfo: {
-    fontSize: 14,
-  },
-  editButton: {
-    backgroundColor: '#007bff',
-    padding: 5,
-    borderRadius: 5,
-    marginRight: 10,
-  },
-  deleteButton: {
-    backgroundColor: 'red',
-    padding: 5,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: 'white',
-  },
-});
 
 export default CrudUsers;

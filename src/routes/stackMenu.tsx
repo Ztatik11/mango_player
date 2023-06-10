@@ -24,10 +24,11 @@ export const StackMenu = () => {
             headerShown: false,
             }} animation="flip"
             >
-            <Stack.Screen name="CrudUsers" component={CrudUsers} options={{stackPresentation: 'modal'}}/>
-            <Stack.Screen name="Register" component={Register}/>
             <Stack.Screen name="MainMenu" component={mainMenu}/>
             <Stack.Screen name="Profile" component={Profile}/>
+            <Stack.Screen name="CrudUsers" component={CrudUsers} options={{stackPresentation: 'modal'}}/>
+            <Stack.Screen name="Register" component={Register}/>
+            
             <Stack.Screen name="PlayListlist" component={PlayListlist}/>
             <Stack.Screen name="GenretrackList" component={GenreTrackList}/>
             <Stack.Screen name="EditProfile" component={EditProfile}/>
